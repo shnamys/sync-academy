@@ -12,7 +12,7 @@
                 <Toolbar >
                     <Title text="Vertical Layout(툴바)"/>
                     <ToolbarSpacer />
-                    <Button text="Save"/>
+                    <Button text="Save" icon="sap-icon://add-coursebook"/>
                 
                 </Toolbar>
             </headerToolbar>
