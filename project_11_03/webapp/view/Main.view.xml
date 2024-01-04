@@ -1,0 +1,18 @@
+<View controllerName="project1103.controller.Main"
+    xmlns="sap.ui.core.mvc" displayBlock="true"
+    xmlns:l="sap.ui.layout"
+    xmlns:m="sap.m">
+    <m:Page id="page" title="{i18n>title}">
+      
+            
+        <l:VerticalLayout> 
+
+            <m:Input id="idInput" />
+            <m:Button text="작성 완료" press="onClickPrint"/>    
+            <m:Text id="idText"/>
+            <m:Button text="초기화" press="onClickreset"/>
+            
+        </l:VerticalLayout>
+               
+    </m:Page>
+</View>
