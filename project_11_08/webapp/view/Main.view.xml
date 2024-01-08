@@ -1,0 +1,55 @@
+<mvc:View controllerName="project1108.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:t="sap.ui.table"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+     
+        <t:Table
+            rows="{/list}"
+            selectionMode="MultiToggle"
+            rowActionCount="1"
+            paste="onPaste"
+            ariaLabelledBy="title">
+            <t:rowActionTemplate>
+             <t:RowAction >
+                <t:items>
+                    <t:RowActionItem 
+                        type="Delete" press="onRowDelete" />
+                </t:items>
+             </t:RowAction>
+            </t:rowActionTemplate>
+            <t:extension>
+                <OverflowToolbar>
+                    <content>
+                        <Title text="Table" level="H2"/>
+                        <ToolbarSpacer />
+                        <Button 
+                            text="Add" 
+                            press="onAdd" 
+                            type="Emphasized"
+                            icon="sap-icon://add"/>
+                        <Button 
+                            text="Delete" 
+                            press="onDelete" 
+                            type="Emphasized"
+                            icon="sap-icon://delete"/>
+                    </content>
+                </OverflowToolbar>
+            </t:extension>
+            <t:columns>
+                <t:Column hAlign="End" >
+                    <Label width="100%" textAlign="Center" text="Name" />
+                <t:template>
+                    <Input value="{name}" />
+                </t:template>
+                </t:Column>
+                <t:Column hAlign="Center">
+                    <Label width="100%" textAlign="Center" text="Age" />
+                <t:template>
+                    <Input value="{age}" />
+                </t:template>
+                </t:Column>                
+            </t:columns>
+        </t:Table>
+    </Page>
+</mvc:View>
