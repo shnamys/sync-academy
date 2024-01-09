@@ -8,38 +8,91 @@
            <!-- <Button text="클릭" />
            <Button text="조회" type="Emphasized" />
             -->
-
         <l:VerticalLayout width="300px"> 
+            <m:Title id="idTitle" text="{title/subTitle}"/>
+            <!--binding="{/title}"-->
             <m:Input id="idInput1"/>
-            <m:Select id="idSelect" width="100%" showSecondaryValues="true" >
-                <m:items>
-                    <!-- <core:Item key="plus" text="+"/>
-                    <core:Item key="minus" text="-"/>
-                    <core:Item key="multiple" text="*"/>
-                    <core:Item key="divide" text="/"/> -->
+            <m:Select 
+                id="idSelect" 
+                width="100%" 
+                showSecondaryValues="true"
+                items="{/list}"
+                >                                
+                        <core:ListItem 
+                            key="{key}"
+                            text="{text}"
+                            additionalText="{additionalText}" />
 
-                    <core:ListItem key="plus" text="+" additionalText="plus"/>
-                    <core:ListItem key="minus" text="-" additionalText="minus"/>
-                    <core:ListItem key="multiple" text="*" additionalText="multiple"/>
-                    <core:ListItem key="divide" text="/" additionalText="divide"/>
-                </m:items>
+                            <!-- <core:Item key="plus" text="+"/>
+                            <core:Item key="minus" text="-"/>
+                            <core:Item key="multiple" text="*"/>
+                            <core:Item key="divide" text="/"/> -->
+
+                            <!-- <core:ListItem key="plus" text="+" additionalText="plus"/>
+                            <core:ListItem key="minus" text="-" additionalText="minus"/>
+                            <core:ListItem key="multiple" text="*" additionalText="multiple"/>
+                            <core:ListItem key="divide" text="/" additionalText="divide"/> -->
+                      
             </m:Select>
             <m:Input id="idInput2"/>
-            <m:Button width="100%" text="실행" press="onCalc" />
+            <m:Button width="100%" text="실행" press="onCalc" />            
             <m:Text id="idText"/>
         </l:VerticalLayout>
 
         <!--sap.ui.table.Table-->
         <t:Table
-            rows="{/ProductCollection}"
+            rows="{local>/history}"
             selectionMode="MultiToggle"
             paste="onPaste"
             ariaLabelledBy="title">
             <t:columns>
-                <t:Column width="11rem">
-                    <m:Label text="Product Name" />
+                <t:Column hAlign="End" >
+                    <m:Label width="100%" textAlign="Center" text="Number1" />
                 <t:template>
-                    <m:Text text="{Name}" wrapping="false" />
+                    <m:Text text="{local>num1}" wrapping="false" />
+                </t:template>
+                </t:Column>
+                <t:Column hAlign="Center">
+                    <m:Label text="Operator" />
+                <t:template>
+                    <m:Text text="{local>oper}" wrapping="false" />
+                </t:template>
+                </t:Column>
+                <t:Column hAlign="End">
+                    <m:Label text="Number2" />
+                <t:template>
+                    <m:Text text="{local>num2}" wrapping="false" />
+                </t:template>
+                </t:Column>
+                <t:Column hAlign="End">
+                    <m:Label text="Result" />
+                <t:template>
+                    <m:Text text="{local>result}" wrapping="false" />
+                </t:template>
+                </t:Column>
+                <t:Column >
+                    <m:Label text="Status" />
+                <t:template>
+                    <core:Icon
+			            src="sap-icon://circle-task-2"
+			            class="size1"
+			            color="{
+                            path : 'local>result',
+                            formatter : '.fnColorFormat'
+                        }" 
+                        visible="{= ${local>result} > 100}">
+                        <!-- 
+                            color="{= ${local>result} > 100 ? '#47C83E' : '#FF0000' }" 
+                        -->
+                        <!--
+                            ">" 부등호는 그냥 입력해도 되는데,
+                            입력이 안되면  요건 코드값으로 입력해야 함. 코드값 : &lt;
+                            "<" 대신  &lt; 를 입력하면 된다! 
+                        -->
+			        <core:layoutData>
+				    <m:FlexItemData growFactor="1" />
+			        </core:layoutData>
+		            </core:Icon>
                 </t:template>
                 </t:Column>
             </t:columns>

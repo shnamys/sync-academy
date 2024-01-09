@@ -38,6 +38,12 @@ sap.ui.define([
 
                 aList.splice(index, 1);
                 this.getView().getModel().setProperty("/list", aList);
+            },
+            onDelete : function() {
+               
+                     var oTable 
+                  // var aSelectedIndices = oTable.getSelectedItem();
+
             }
 
         });

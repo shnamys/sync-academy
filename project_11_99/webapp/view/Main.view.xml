@@ -1,0 +1,53 @@
+<mvc:View controllerName="project1199.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:t="sap.ui.table"
+    xmlns:l="sap.ui.layout">
+    <Page id="page" title="{i18n>title}">
+        <l:VerticalLayout width="300px">
+            <Input id="idInput1"/>
+            <Select id="idSelect"  width="300px" items="{op>/list}">
+            <c:ListItem key="{op>key}" text="{op>text}"/>
+                <!-- <c:ListItem text="+" key="Plus" />
+                <c:ListItem text="-" key="Minus"/>
+                <c:ListItem text="*" key="Multiple" />
+                <c:ListItem text="/" key="Divide" /> -->
+            </Select>
+            <Input id="idInput2"/>
+            <Button text="계산" press="onCalc"/>
+        </l:VerticalLayout>
+        <t:Table
+				rows="{history>/list}"
+				selectionMode="MultiToggle"
+				paste="onPaste"
+				ariaLabelledBy="title">
+				<t:columns>
+					<t:Column width="11rem">
+						<Label text="Num1" />
+						<t:template>
+							<Text text="{history>num1}" wrapping="false" />
+						</t:template>
+					</t:Column>
+                    <t:Column width="11rem">
+						<Label text="Operator" />
+						<t:template>
+							<Text text="{history>oper}" wrapping="false" />
+						</t:template>
+					</t:Column>
+                    <t:Column width="11rem">
+						<Label text="Num2" />
+						<t:template>
+							<Text text="{history>num2}" wrapping="false" />
+						</t:template>
+					</t:Column>	
+                    <t:Column width="11rem">
+						<Label text="Result" />
+						<t:template>
+							<Text text="{history>result}" wrapping="false" />
+						</t:template>
+					</t:Column>	
+				</t:columns>
+			</t:Table>
+    </Page>
+</mvc:View>
