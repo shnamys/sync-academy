@@ -41,10 +41,21 @@ sap.ui.define([
             },
             onDelete : function() {
                
-                     var oTable 
-                  // var aSelectedIndices = oTable.getSelectedItem();
+            var oTable = this.byId("idTable"),
+                aList = this.getView().getModel().getProperty("/list"),
+                aIndices = oTable.getSelectedIndices(); //[2,5,7]  
+               
+            
+            // [1,3,5]이면, 배열. length 했을 때 3이 리턴됨
+            // 근데 반복문 돌릴 때는 index(0,1,2)를 사용할 것이기 때문에
+            // 3이 아니라 2가 되어야 함. 따라서 -1을 해줘야 함
+            var len = aIndices.length;
+            for(var i=len-1; i>=0; i--){
+                aList.splice(aIndices[i],1);
+            } 
+            this.getView().getModel().setProperty("/list", aList);
 
-            }
+    }
 
         });
     });
