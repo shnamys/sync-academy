@@ -1,0 +1,92 @@
+<c:FragmentDefinition 
+xmlns:c="sap.ui.core"
+xmlns:t="sap.ui.table"
+xmlns="sap.m">
+   <Dialog id="idDialog"
+           contentWidth="40%"
+           title="Products"
+           contentHeight="50%"
+           draggable="true"
+           resizable="true" >
+        <Table 
+            sticky="HeaderToolbar,ColumnHeaders"
+            inset="false"
+            items="{/Products}"
+            class="sapFDynamicPageAlignContent"
+            width="auto"
+            mode="SingleSelectMaster"
+            selectionChange="onSelectionChange">
+			 
+        <OverflowToolbar style="Clear">
+            <Title text="Products"/>            
+        </OverflowToolbar>
+				
+            <columns>
+                <Column width="11rem">
+					<Label text="ProductID" />
+                </Column>
+                <Column width="11rem">
+					<Label text="ProductName" />
+                </Column>
+                <Column width="11rem">
+					<Label text="SupplierID" />												
+                </Column>
+                <Column width="11rem">
+					<Label text="CategoryID" />
+                </Column>
+                <Column width="11rem">
+					<Label text="QuantityPerUnit" />						
+                </Column>
+                <Column width="11rem">
+					<Label text="UnitPrice" />											
+                </Column>
+                <Column width="11rem">
+					<Label text="UnitsInStock" />
+                </Column>
+                <Column width="11rem">
+					<Label text="UnitsOnOrder" />						
+                </Column>
+                <Column width="11rem">
+					<Label text="ReorderLevel" />												
+                </Column>
+                <Column width="11rem">
+					<Label text="Discontinued" />					
+                </Column> 
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{ProductID}" />
+                            <Text text="{ProductName}" />
+                            <Text text="{SupplierID}" />
+                            <Text text="{CategoryID}" />
+                            <Text text="{QuantityPerUnit}" />
+                            <Text text="{UnitPrice}" />
+                            <Text text="{UnitsInStock}" />
+                            <Text text="{UnitsOnOrder}" />
+                            <Text text="{ReorderLevel}" />
+                            <Text text="{
+                                path : 'Discontinued',
+                                formatter : 'transformDiscontinued' 
+                                }"/>
+                        </cells>
+                    </ColumnListItem>
+            </items>
+                <Column width="11rem">
+                    <Label text="Status" />
+                        <c:Icon
+                            src="sap-icon://syringe"
+                            class="size1"
+                            color="rgb(27, 234, 33)" >
+                            <c:layoutData>
+                                <FlexItemData growFactor="1" />
+                            </c:layoutData>
+                        </c:Icon>
+                </Column>					
+        </Table>
+        <endButton>
+            <Button text="close" icon="sap-icon://decline" 
+                    press="onClose"/>                
+        </endButton>       
+   </Dialog>
+</c:FragmentDefinition>

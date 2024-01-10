@@ -34,7 +34,11 @@ sap.ui.define([
                 }
             },
             onValueHelpRequest : function() {
-                sap.m.MessageToast.show('팝업 오픈!');
+                this.byId('idDialog').open()
+
+            },
+            onClose : function(oEvent) {
+                oEvent.getSource().getParent().close();
             },
             onSearch : function() {
 
@@ -53,7 +57,7 @@ sap.ui.define([
 
                         })
                         
-                );
+                ); 
                     
                 }; 
                 
@@ -94,11 +98,11 @@ sap.ui.define([
 
             },
             //sap.m.Table에서,selectionChange 이벤트 실행
-            // onSelectionChange : function(oEvent) {
-            //     var sPath = oEvent.getParameters().listItem.getBindingContextPath();
-            //     // 상대 경로로 지정되어 있는 데이터 셋에서, 내가 선택한 row의 모델 경로를 얻음
-            //     var oSelectData = this.getView().getModel().getProperty(sPath);
-            //     // 모델 경로를 통해서, 해당 경로의 전체 데이터를 얻음
-            // }
+            onSelectionChange : function(oEvent) {
+                var sPath = oEvent.getParameters().listItem.getBindingContextPath();
+                // 상대 경로로 지정되어 있는 데이터 셋에서, 내가 선택한 row의 모델 경로를 얻음
+                var oSelectData = this.getView().getModel().getProperty(sPath);
+                // 모델 경로를 통해서, 해당 경로의 전체 데이터를 얻음
+            }
         });
     });
