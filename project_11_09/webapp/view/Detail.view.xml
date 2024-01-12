@@ -1,0 +1,62 @@
+<mvc:View controllerName="odata.project1109.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" showNavButton="true" navButtonPress="onNavBack">
+        <content >
+            <!-- <Text id="idText"/> -->
+            <f:Form id="idFoam"
+                editable="true">
+                <f:title>
+                    <core:Title text="Order Detail" />
+                </f:title>
+                <f:layout>
+                    <f:ColumnLayout
+                        columnsM="2"
+                        columnsL="3"
+                        columnsXL="4"
+                    />
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer title="Address">
+                        <f:formElements>
+                            <f:FormElement label="OrderID">
+                                <f:fields>
+                                    <Text text="{OrderID}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="OrderDate">
+                                <f:fields>
+                                    <Text text="{OrderDate}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="RequiredDate">
+                                <f:fields>
+                                    <Text text="{RequiredDate}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="ShipName">
+                                <f:fields>
+                                    <Text text="{ShipName}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="ShipAddress">
+                                <f:fields>
+                                    <Text text="{ShipAddress}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="ShipCity">
+                                <f:fields>
+                                    <Text text="{ShipCity}" />
+                                </f:fields>
+                            </f:FormElement>																		
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+
+
+        </content >
+    </Page>
+</mvc:View>

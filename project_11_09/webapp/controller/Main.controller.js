@@ -21,7 +21,11 @@ sap.ui.define([
                     OrderDate_end : null
                 };
                 this.getView().setModel(new JSONModel(oData), 'search')
+
+                
+
             },
+                
             fnDateToString : function(sValue) {
                 if(sValue) {
 
@@ -103,6 +107,14 @@ sap.ui.define([
                 // 상대 경로로 지정되어 있는 데이터 셋에서, 내가 선택한 row의 모델 경로를 얻음
                 var oSelectData = this.getView().getModel().getProperty(sPath);
                 // 모델 경로를 통해서, 해당 경로의 전체 데이터를 얻음
-            }
+                
+                this.oRouter = this.getOwnerComponent().getRouter()
+                this.oRouter.navTo('RouteDetail', {
+                    OrderID: oSelectData.OrderID
+                
+                }, true);
+               
+            },
+            
         });
     });

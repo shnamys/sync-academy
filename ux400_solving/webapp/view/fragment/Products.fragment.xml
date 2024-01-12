@@ -59,9 +59,9 @@ xmlns="sap.m">
 						<Label text="Status" />
 						<t:template>
 							<c:Icon
-								src="{= ${UnitPrice} > 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
+								src="{= ${UnitPrice} >= 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
 								class="size1"
-								color="{= ${UnitPrice} > 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27)'}" >
+								color="{= ${UnitPrice} >= 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27)'}" >
 							</c:Icon>
 						</t:template>
 					</t:Column>

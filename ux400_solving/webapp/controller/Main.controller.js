@@ -49,6 +49,14 @@ sap.ui.define([
                }else {
                 return "No";
                }
+            },
+            onValueChange : function(sValue2) {
+                if(sValue2 >= 1 && sValue2 <= 100) {
+                    
+                }else {
+                   sValue2.setvaluestate()
+                }
+
             }
         
 
