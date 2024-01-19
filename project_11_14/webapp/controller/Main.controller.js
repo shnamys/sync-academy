@@ -2,12 +2,14 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Filter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox, MessageToast) {
+    function (Controller, JSONModel, MessageBox, MessageToast, Fragment, Filter) {
         "use strict";
 
         return Controller.extend("project1114.controller.Main", {
@@ -59,18 +61,69 @@ sap.ui.define([
                 this.byId("idTable").clearSelection();
                 this.getView().getModel().refresh(true);
             },
-            onEntitySet : function() {
+            onEntitySet : function(oEvent) {
                 var oModel = this.getView().getModel();
-                    oModel.read("/ZTMEMBER_SB11Set", {
-                    success : function(oReturn) {
-                        console.log("전체조회: ", oReturn);                               
-                    },
-                    error : function(oError) {
-                        console.log("전체조회 중 오류 발생", oError);
-                    }
-                 })
+                    
+                var oButton = oEvent.getSource(),
+                    oView = this.getView();
+    
+                // create popover
+                if (!this._pPopover) {
+                    this._pPopover = Fragment.load({ 
+                        id: oView.getId(),
+                        name: "project1114.view.fragment.Popover",
+                        controller: this
+                    }).then(function(oPopover) {
+                        oPopover.setModel(new JSONModel(), 'popover')
+                        oView.addDependent(oPopover);
+                        return oPopover;
+                    });
+                }
+                this._pPopover.then(function(oPopover) {
+                    oPopover.openBy(oButton);
+                });
+                    
+
+
+            //     oModel.read("/ZTMEMBER_SB11Set", {
+            //     success : function(oReturn) {
+            //         console.log("전체조회: ", oReturn);                               
+            //     },
+            //     error : function(oError) {
+            //         console.log("전체조회 중 오류 발생", oError);
+            //     }
+            //  })
                 
             }, 
+            onRead : function() {
+                // var oPopover = sap.ui.getCore().byId("myPopover");
+
+                //Fragment.load() 사용 시,
+                //view id를 같이 넘겨줬기 때문에 view안에 popover가 붙게 된다
+                //따라서 this.byId()로 접근 가능
+
+                var oPopover = this.byId("myPopover");
+                var oPopoverModel = oPopover.getModel('popover');
+                var oData = oPopoverModel.getData();
+
+                console.log(oPopoverModel.getData());
+
+                var oDataModel = this.getView().getModel();
+                var oFilter = new Filter("Memnm", "EQ", oData.Membername);
+                
+                oDataModel.read("/ZTMEMBER_SB11Set", {
+                    urlParameters : {
+                        "$expand" : "WorkSet",
+                        "$select" : "Memid,WorkSet"
+                    },
+                    filters : [oFilter],
+                    success : function(oReturn) { 
+                        debugger;                       
+                        console.log("필터조회 :", oReturn);
+                    }
+                })
+
+            },
             onCreate : function() {
                 var oModel = this.getView().getModel();
                 var oJsonData = this.getView().getModel('data').getData();
@@ -85,9 +138,15 @@ sap.ui.define([
                 oModel.create("/ZTMEMBER_SB11Set", oBody, {
                     success : function() {
                         // sap.m.MessageToast.show("데이터 생성 완료");
-                        MessageBox.success("데이터 생성 완료");
-                        console.log("11111111");
-                    },
+
+                        // 서버 요청 끝난 후 작업은 해당 함수 안에서 구현
+                        // 해당 함수 안에서는 this가 달리지기 때문에,
+                        // 이전에 사용하던 this를 그대로 넘겨주기 위해서
+                        // .bind(this)를 적용시킴
+                        this._showMessage("데이터 생성 완료!");
+                        // MessageBox.success("데이터 생성 완료");
+                        // console.log("11111111");
+                    }.bind(this),
                     error : function(oError) {
                         // sap.m.MessageToast.show("에러 발생");
                         MessageBox.error("에러 발생.", {
@@ -104,7 +163,7 @@ sap.ui.define([
                     }
                 });
 
-            },
+            },         
             onEntity : function() {
                 var oBody = this.getView().getModel('data').getData();
                 var oDataModel = this.getView().getModel();

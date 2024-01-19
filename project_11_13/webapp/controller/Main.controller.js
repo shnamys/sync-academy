@@ -1,11 +1,12 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel) {
+    function (Controller, JSONModel, Filter) {
         "use strict";
 
         return Controller.extend("odata.project1113.controller.Main", {
@@ -19,7 +20,7 @@ sap.ui.define([
                 })
                 // Input value에다가 Binding 하기=> {data>/Productno}
                 this.getView().setModel(oJsonData, "data");
-
+               
             },
             onRowSelectionChange : function(oEvent) {
                 // Row 선택 해제 되었을 때도, '선택' 된 것이기 때문에 이벤트 발생
@@ -57,11 +58,16 @@ sap.ui.define([
                 // 전체 조회 구현
                 // GET 요청 : "/Products"
                 var oDataModel = this.getView().getModel();
+                var oFilter = new Filter("Productname", "EQ", "안녕");
+                var oDialog = this.byId("idDialog");                   
+                
                 oDataModel.read("/Products", {
-                    filters : [],
+                    filters : [oFilter],
                     success : function(oReturn) {
                         console.log("전체조회: ", oReturn);
-                    // 요청한 데이터를 서버에서 성공적으로 응답을 받았을 때            
+                    // 요청한 데이터를 서버에서 성공적으로 응답을 받았을 때
+                    oDialog.setModel(new JSONModel(oReturn), 'filter');
+                    oDialog.open();            
                     },
                     error : function(oError) {
                         console.log("전체조회 중 오류 발생", oError);
@@ -103,7 +109,7 @@ sap.ui.define([
                 };
                 oDataModel.create("/Products", oBody, {
                     success : function() {
-                        // sap.m.MessageToast.show("데이터 생성 완료");
+                        sap.m.MessageToast.show("데이터 생성 완료");
                        
                     }
                     
@@ -143,6 +149,10 @@ sap.ui.define([
                         sap.m.MessageToast.show('삭제되었습니다.');
                     }
                 });
+
+            },
+            onClose : function() {
+                this.byId("idDialog").close();
 
             }
 

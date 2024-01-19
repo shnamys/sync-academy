@@ -1,0 +1,59 @@
+<c:FragmentDefinition 
+xmlns:c="sap.ui.core"
+xmlns:t="sap.ui.table"
+xmlns="sap.m">
+   <Dialog id="idDialog"
+           contentWidth="40%"
+           title="Products"
+           contentHeight="50%"
+           draggable="true"
+           resizable="true" >
+        <t:Table
+            rows="{filter>/results}"
+            selectionMode="MultiToggle"
+            paste="onPaste"
+            ariaLabelledBy="title">
+            <t:extension>
+                <OverflowToolbar style="Clear">
+                    <Title text="Filter" level="H2"/>
+                </OverflowToolbar>
+            </t:extension>
+            <t:columns>
+                <t:Column width="11rem">
+                    <Label text="Product No" />
+                    <t:template>
+                        <Text text="{filter>Productno}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Product Name" />
+                    <t:template>
+                        <Text text="{filter>Productname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="First Name" />
+                    <t:template>
+                        <Text text="{filter>Fname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Last Name" />
+                    <t:template>
+                        <Text text="{filter>Lname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Memo" />
+                    <t:template>
+                        <Text text="{filter>Memo}" wrapping="false" />
+                    </t:template>
+                </t:Column>                                
+            </t:columns>
+        </t:Table>
+        <endButton>
+            <Button text="close" icon="sap-icon://decline" 
+                    press="onClose"/>                
+        </endButton>       
+   </Dialog>
+</c:FragmentDefinition>

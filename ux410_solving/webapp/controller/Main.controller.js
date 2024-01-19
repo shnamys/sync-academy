@@ -57,7 +57,12 @@ sap.ui.define([
                     oSelect.setValueState(sap.ui.core.ValueState.None);
                 }
                 
+            },
+            onChartSelet : function(oEvent) {
+                
             }
+
+
 
                 
         });
