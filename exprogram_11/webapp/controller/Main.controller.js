@@ -13,12 +13,9 @@ sap.ui.define([
         return Controller.extend("exam.exprogram11.controller.Main", {
             onInit: function () {
                 var oJsonData = new JSONModel({
-                    list : [{
-                        CategoryID : "",
-                        ProductName : "",
-                        UnitsInStock : "",
-                        UnitsOnOrder : ""
-                    }]                   
+                    LocalTable : [],
+                    LocalChart : []
+
                     
                 }); this.getView().setModel(oJsonData, "data");
                
@@ -43,14 +40,14 @@ sap.ui.define([
                 var oSelectData = this.getView().getModel().getProperty(sPath);
 
                 var oDataModel = this.getView().getModel();
-                var oFilter = new Filter("CategoryID", 'EQ', oSelectData.CategoryID);
+                var oJSONModel = this.getView().getModel("data");
+                var oFilter = new Filter('CategoryID', 'EQ', oSelectData.CategoryID);
 
 
                 oDataModel.read("/Products", {
                     filters : [oFilter],
-                    success : function(oReturn) {
-                        var oJSONModel = this.getView().getModel("data");
-                        oJSONModel.setData(oReturn);
+                    success : function(oReturn) {           
+                        oJSONModel.setData({LocalTable : oReturn.results});
                     }.bind(this)
 
                     
