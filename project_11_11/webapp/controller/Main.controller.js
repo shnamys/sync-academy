@@ -11,15 +11,15 @@ sap.ui.define([
 
         return Controller.extend("project1111.controller.Main", {
             onInit: function () {
-            //     var oData = {
-            //         chartDataset : [
-            //             {year : '2020', price : '1000'},
-            //             {year : '2021', price : '2000'},
-            //             {year : '2022', price : '1200'},
-            //             {year : '2023', price : '2500'}
-            //         ]
-            //     }
-            //     this.getView().setModel(new JSONModel(oData), 'chart');
+                // var oData = {
+                //     chartDataset : [
+                //         {year : '2020', price : '1000'},
+                //         {year : '2021', price : '2000'},
+                //         {year : '2022', price : '1200'},
+                //         {year : '2023', price : '2500'}
+                //     ]
+                // }
+                // this.getView().setModel(new JSONModel(oData), 'chart');
 
             }
         });

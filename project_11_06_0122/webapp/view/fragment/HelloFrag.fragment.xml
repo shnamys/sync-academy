@@ -1,0 +1,10 @@
+<c:FragmentDefinition  
+xmlns:c="sap.ui.core"
+xmlns="sap.m">
+    <Panel headerText="HelloPanel Title">
+        <content>
+            <Button text="Hello Fragment" press=".HelloButtonPress"/>
+            <Input value="헬로~~" width="50%" />
+        </content>
+    </Panel>
+</c:FragmentDefinition>

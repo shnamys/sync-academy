@@ -1,0 +1,45 @@
+<mvc:View controllerName="project1116.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content >
+
+            <Table id="idProductsTable"
+                    inset="false"
+                    items="{/ZTMEMBER_SB11Set}">			
+							
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="Products" level="H2"/>
+                            <ToolbarSpacer />                                        
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                
+                <columns>
+                    <Column width="12em">                        
+                        <Text text="MemberID" />                        
+                    </Column>
+                    <Column width="12em">                        
+                        <Text text="MemberID" />
+                        
+                    </Column>                                       
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>                            
+                            <Image src="{
+                                path : 'Memid',
+                                formatter : '.setImage'
+                                }"
+                                width="100px" />
+                            <Text text="{Memid}"/>                                                                                                   
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>        
+                    
+        </content >
+    </Page>
+</mvc:View>

@@ -1,0 +1,11 @@
+<mvc:View controllerName="project11060122.controller.HelloPanel"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Panel headerText="HelloPanel Title">
+        <content >
+            <Button text="Show Hello"/>
+            <Input value="" width="50%"/>
+
+        </content>
+    </Panel>
+</mvc:View>

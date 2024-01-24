@@ -138,7 +138,6 @@ sap.ui.define([
                 oModel.create("/ZTMEMBER_SB11Set", oBody, {
                     success : function() {
                         // sap.m.MessageToast.show("데이터 생성 완료");
-
                         // 서버 요청 끝난 후 작업은 해당 함수 안에서 구현
                         // 해당 함수 안에서는 this가 달리지기 때문에,
                         // 이전에 사용하던 this를 그대로 넘겨주기 위해서
