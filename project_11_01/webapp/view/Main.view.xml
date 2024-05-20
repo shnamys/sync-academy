@@ -1,0 +1,98 @@
+<mvc:View xmlns:footerbar="sap.ushell.ui.footerbar" controllerName="project1101.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:c="sap.ui.core"
+    xmlns:t="sap.ui.table">
+    <Page id="page" title="{i18n>title}">
+
+        <!-- <Button text= "클릭"/>
+        <Button text= "조회" type="Emphasized"/> -->
+
+        <l:VerticalLayout width="300px">
+            <Input id="idInput1"/>
+            <Select 
+                width="100%" 
+                showSecondaryValues="true" 
+                id="idSelect"
+                items="{/list}">
+
+                <c:ListItem 
+                key="{key}"
+                text="{text}"
+                additionalText="{additionalText}" />
+                
+                <!-- <items>
+                    <c:ListItem key="plus" text="+" additionalText="plus" />
+                    <c:ListItem key="minus" text="-" additionalText="minus" />
+                    <c:ListItem key="multiple" text="*" additionalText="multiple" />
+                    <c:ListItem key="divide" text="/" additionalText="divide" />                    
+                </items> -->
+            </Select>            
+            <Input id="idInput2"/>
+            <Button text="계산완료" press="onCalc" width="100%"/>
+            <!-- <Text id="idText"/>             -->
+        </l:VerticalLayout>
+
+        <t:Table
+            rows="{local>/history}"
+            selectionMode="MultiToggle"
+            paste="onPaste"
+            ariaLabelledBy="title">
+            <t:columns>
+                <t:Column hAlign="Center">
+                    <Label text="Number1" />
+                    <t:template>
+                        <Text text="{local>num1}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Center">
+                    <Label text="Operator" />
+                    <t:template>
+                        <Text text="{local>oper}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Center">
+                    <Label text="Number2" />
+                    <t:template>
+                        <Text text="{local>num2}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Center">
+                    <Label text="Result" />
+                    <t:template>
+                        <Text text="{local>result}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+
+        <!-- <Table id="idProductsTable">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="Products" level="H2"/>
+                            <ToolbarSpacer />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>	
+                    <Column
+                        hAlign="End">
+                        <Text text="Price" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <ObjectIdentifier
+                                title="{Name}"
+                                text="{ProductId}"/>
+                            <Text
+                                text="{SupplierName}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->
+    </Page>
+</mvc:View>
