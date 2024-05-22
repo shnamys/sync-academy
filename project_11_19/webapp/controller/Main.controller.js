@@ -48,9 +48,9 @@ sap.ui.define([
 				debugger;
                 if (sKey === "W") {
                     aFilters.push(
-                        new Filter([
-                            new Filter([new Filter("Arvst", "EQ", "W")], true),
-                        ], false)
+                        var nameFilter = new sap.ui.model.Filter("name", sap.ui.model.FilterOperator.Contains, query);
+                        filters.push(nameFilter);
+                        
                     );
                 } else if (sKey === "Y") {
                     aFilters.push(
@@ -69,6 +69,8 @@ sap.ui.define([
                 oBinding.filter(aFilters);
             },
             onAccept : function() {
+
+                
                 // var oBody = this.getView().getModel(oDataModel).getData();
                 // var sPath = oDataModel.createKey("/HeaderSet", {
                 //     Arvst : oBody.Arvst

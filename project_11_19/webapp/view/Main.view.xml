@@ -53,7 +53,8 @@
 					sorter: {
 						path: 'Docno'
 					}
-				}">
+				}"
+				>
 				<infoToolbar>
 					<OverflowToolbar>
 						<Label text="행 클릭 시 상세 정보를 조회합니다."/>
