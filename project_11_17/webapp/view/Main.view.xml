@@ -1,7 +1,77 @@
 <mvc:View controllerName="project1117.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:t="sap.ui.table">
+    <Page id="page" title="전표 승인" >       
+        <content>
+            <t:Table
+                    id="DocTable"
+                    rows="{/DocEntitySet}"
+                    selectionMode="MultiToggle"
+                    rowSelectionChange="onDocSelect"
+                    paste="onPaste"
+                    ariaLabelledBy="title">
+                    <t:extension>
+                        <OverflowToolbar style="Clear">
+                            <Title id="title" text="결재 대기 내역"/>  
+                        </OverflowToolbar>      
+                        <OverflowToolbar id="toolbar" active="false" design="Info" height="2rem" ariaLabelledBy="myText">
+                            <Text id="myText" text="행 클릭시 상세 정보를 조회합니다."/>
+                            <ToolbarSpacer/>
+                        </OverflowToolbar>
+                    </t:extension>
+                    <t:columns>
+                        <t:Column width="11rem">
+                            <Label text="전표상태" />
+                            <t:template>
+                                <Text text="{Arvst}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="전표번호" />
+                            <t:template>
+                                <Text text="{Docno}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="회사코드" />
+                            <t:template>
+                                <Text text="{Bukrs}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="회계연도" />
+                            <t:template>
+                                <Text text="{Fiscal}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="전기일" />
+                            <t:template>
+                                <Text text="{Docdate}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="전표유형" />
+                            <t:template>
+                                <Text text="{Doctype}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="적요" />
+                            <t:template>
+                                <Text text="{Bktxt}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="11rem">
+                            <Label text="상세내역" />
+                            <t:template>
+                                <Text text="{}" wrapping="false" />
+                            </t:template>
+                        </t:Column>                         
+                        </t:columns>
+                    </t:Table>
+         </content>
     </Page>
 </mvc:View>

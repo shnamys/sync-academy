@@ -1,0 +1,112 @@
+<mvc:View controllerName="project1119.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+    <IconTabBar
+		id="idIconTabBar"
+		select=".onFilterSelect"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter
+				id="idIconTabFilterAll"
+				showAll="true"
+				count="{/HeaderSet/Arvst}"
+				text="Doc"
+				key="All" />
+			<IconTabSeparator />
+
+			<IconTabFilter
+				icon="sap-icon://pending"
+				iconColor="Critical"
+				count="{/HeaderSet/Arvst/W}"
+				text="승인 대기"
+				key="W" />
+            
+            <IconTabSeparator icon="sap-icon://process"/>
+
+			<IconTabFilter
+				icon="sap-icon://accounting-document-verification"
+				iconColor="Positive"
+				count="{/HeaderSet/Arvst/Y}"
+				text="승인"
+				key="Y" />
+
+            
+            <IconTabSeparator icon="sap-icon://vertical-grip"/>
+                
+			<IconTabFilter
+				icon="sap-icon://reset"
+				iconColor="Negative"
+				count="{/HeaderSet/Arvst/N}"
+				text="반려"
+				key="N" />
+		</items>
+		<content>
+			<Table
+				id="DocTable"
+				inset="false"
+				showSeparators="Inner"
+				headerText="결재 대기 내역"
+                mode="MultiSelect"
+				items="{
+					path: '/HeaderSet',
+					sorter: {
+						path: 'Docno'
+					}
+				}">
+				<infoToolbar>
+					<OverflowToolbar>
+						<Label text="행 클릭 시 상세 정보를 조회합니다."/>
+                        <ToolbarSpacer/>
+                        <Button type="Accept" text="승인" press="onAccept" />                    
+                        <Button type="Reject" text="반려"/>
+					</OverflowToolbar>
+				</infoToolbar>
+				<columns>
+					<Column width="4em" hAlign="Center" >
+						<Text text="전표상태" />
+					</Column>
+					<Column width="6em">
+						<Text text="전표번호" />
+					</Column>
+					<Column width="4em" hAlign="Center">
+						<Text text="회사코드" />
+					</Column>
+                    <Column width="4em" hAlign="Center">
+						<Text text="회계연도" />
+					</Column>
+                    <Column width="6em">
+						<Text text="전기일" />
+					</Column>
+                    <Column width="4em" hAlign="Center">
+						<Text text="전표유형" />
+					</Column>
+                    <Column width="20em">
+						<Text text="적요" />
+					</Column>					
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Arvst}" />								
+							<Text text="{Docno}" />	
+                            <Text text="{Bukrs}" />	
+                            <Text text="{Fiscal}" />
+                            <!-- <Text text="{Docdate}" /> -->
+                            <Text text="{
+                            path: 'Docdate',
+                            type: 'sap.ui.model.odata.type.Date',
+                            formatOptions: {
+                                pattern: 'yyyy.MM.dd'
+                                }
+                            }" />
+
+                            <Text text="{Doctype}" />
+                            <Text text="{Bktxt}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</IconTabBar>
+</mvc:View>
