@@ -43,6 +43,7 @@
 		</items>
 		<content>
 			<Table
+				binding=""
 				id="DocTable"
 				inset="false"
 				showSeparators="Inner"
