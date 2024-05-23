@@ -16,6 +16,7 @@
 			<IconTabSeparator />
 
 			<IconTabFilter
+				id="idPending"
 				icon="sap-icon://pending"
 				iconColor="Critical"
 				count="{/HeaderSet/Arvst/W}"
@@ -25,16 +26,17 @@
             <IconTabSeparator icon="sap-icon://process"/>
 
 			<IconTabFilter
+				id="idAccept"
 				icon="sap-icon://accounting-document-verification"
 				iconColor="Positive"
 				count="{/HeaderSet/Arvst/Y}"
 				text="승인"
 				key="Y" />
-
             
             <IconTabSeparator icon="sap-icon://vertical-grip"/>
                 
 			<IconTabFilter
+				id="idReject"
 				icon="sap-icon://reset"
 				iconColor="Negative"
 				count="{/HeaderSet/Arvst/N}"
@@ -55,13 +57,17 @@
 						path: 'Docno'
 					}
 				}"
+				growing="true" 
+				growingScrollToLoad="true" 
+				fixedLayout="false"
+				
 				>
 				<infoToolbar>
 					<OverflowToolbar>
 						<Label text="행 클릭 시 상세 정보를 조회합니다."/>
                         <ToolbarSpacer/>
-                        <Button type="Accept" text="승인" press="onAccept" />                    
-                        <Button type="Reject" text="반려"/>
+                        <Button id="btn_accept" type="Accept" text="승인" press="onAccept" />                    
+                        <Button id="btn_reject" type="Reject" text="반려" press="onReject"/>
 					</OverflowToolbar>
 				</infoToolbar>
 				<columns>
@@ -88,7 +94,7 @@
 					</Column>					
 				</columns>
 				<items>
-					<ColumnListItem>
+					<ColumnListItem type="Active" press="handleItemPress" >
 						<cells>
 							<Text text="{Arvst}" />								
 							<Text text="{Docno}" />	

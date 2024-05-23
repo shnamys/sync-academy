@@ -1,0 +1,60 @@
+<mvc:View controllerName="project1119.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="idPage" title="title" showNavButton="true" navButtonPress="onNavBack"> <!-- nav버튼을 눌러 main 뷰로 돌아가기-->
+        <content>
+            <Table id="idTable"                 
+                items="{
+                    path : '/DocItemEntitySet'
+                }">
+
+                <columns>
+                    <Column width="6em" hAlign="Begin">
+                        <Text text="전표번호" />
+                    </Column>
+                    <Column width="6em" hAlign="Begin">
+                        <Text text="G/L 계정번호" />
+                    </Column>
+                    <Column width="6em" hAlign="End">
+                        <Text text="회사코드" />
+                    </Column>
+                    <Column width="6em" hAlign="Begin">
+                        <Text text="전기일" />
+                    </Column>
+                    <Column width="6em" hAlign="End">
+                        <Text text="차/대변 지시자" />
+                    </Column>
+                    <Column width="6em" hAlign="End">
+                        <Text text="전기키" />
+                    </Column>
+                     <Column width="6em" hAlign="End">
+                        <Text text="금액" />
+                    </Column> 
+                    <Column width="6em" hAlign="End">
+                        <Text text="통화" />
+                    </Column>
+                     <Column width="6em" hAlign="End">
+                        <Text text="적요" />
+                    </Column>
+
+                    
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text="{Docno}"/>
+                            <Text text="{Racct}" />
+                            <Text text="{Bukrs}" />
+                            <Text text="{Docdate}" />
+                            <Text text="{Drcrk}" />
+                            <Text text="{Bschl}" />
+                            <Text text="{Amount}" />
+                            <Text text="{Currkey}" />
+                            <Text text="{Doctext}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
