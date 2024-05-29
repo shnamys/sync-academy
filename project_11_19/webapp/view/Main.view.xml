@@ -8,7 +8,7 @@
 		class="sapUiResponsiveContentPadding">
 		<items>
 			<IconTabFilter
-				id="idIconTabFilterAll"
+				id="idAll"
 				showAll="true"
 				count="{/HeaderSet/Arvst}"
 				text="Doc"
@@ -16,6 +16,7 @@
 			<IconTabSeparator />
 
 			<IconTabFilter
+				id="idPending"
 				icon="sap-icon://pending"
 				iconColor="Critical"
 				count="{/HeaderSet/Arvst/W}"
@@ -25,16 +26,17 @@
             <IconTabSeparator icon="sap-icon://process"/>
 
 			<IconTabFilter
+				id="idAccept"
 				icon="sap-icon://accounting-document-verification"
 				iconColor="Positive"
 				count="{/HeaderSet/Arvst/Y}"
 				text="승인"
 				key="Y" />
-
             
             <IconTabSeparator icon="sap-icon://vertical-grip"/>
                 
 			<IconTabFilter
+				id="idReject"
 				icon="sap-icon://reset"
 				iconColor="Negative"
 				count="{/HeaderSet/Arvst/N}"
@@ -43,6 +45,7 @@
 		</items>
 		<content>
 			<Table
+				binding=""
 				id="DocTable"
 				inset="false"
 				showSeparators="Inner"
@@ -53,29 +56,34 @@
 					sorter: {
 						path: 'Docno'
 					}
-				}">
+				}"
+				growing="true" 
+				growingScrollToLoad="true" 
+				fixedLayout="false"
+				
+				>
 				<infoToolbar>
 					<OverflowToolbar>
 						<Label text="행 클릭 시 상세 정보를 조회합니다."/>
                         <ToolbarSpacer/>
-                        <Button type="Accept" text="승인" press="onAccept" />                    
-                        <Button type="Reject" text="반려"/>
+                        <Button id="btn_accept" type="Accept" text="승인" press="onAccept" />                    
+                        <Button id="btn_reject" type="Reject" text="반려" press="onReject"/>
 					</OverflowToolbar>
 				</infoToolbar>
 				<columns>
 					<Column width="4em" hAlign="Center" >
 						<Text text="전표상태" />
 					</Column>
-					<Column width="6em">
+					<Column width="5em" hAlign="Center">
 						<Text text="전표번호" />
 					</Column>
-					<Column width="4em" hAlign="Center">
+					<Column width="5em" hAlign="Center">
 						<Text text="회사코드" />
 					</Column>
-                    <Column width="4em" hAlign="Center">
+                    <Column width="5em" hAlign="Center">
 						<Text text="회계연도" />
 					</Column>
-                    <Column width="6em">
+                    <Column width="5em" hAlign="Center">
 						<Text text="전기일" />
 					</Column>
                     <Column width="4em" hAlign="Center">
@@ -86,7 +94,7 @@
 					</Column>					
 				</columns>
 				<items>
-					<ColumnListItem>
+					<ColumnListItem type="Active" press="handleItemPress" >
 						<cells>
 							<Text text="{Arvst}" />								
 							<Text text="{Docno}" />	

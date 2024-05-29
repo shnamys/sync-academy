@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "project1119",
+    "id": "project1120",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.12.1",
-      "toolsId": "578dfa0d-599e-479c-9654-8bce99ff5cc8"
+      "toolsId": "a9c94b7f-24a4-41db-b87a-8b9514383edf"
     },
     "dataSources": {
       "mainService": {
@@ -66,7 +66,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "project1119.i18n.i18n"
+          "bundleName": "project1120.i18n.i18n"
         }
       },
       "": {
@@ -87,7 +87,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "project1119.view",
+        "viewPath": "project1120.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -99,12 +99,6 @@
           "target": [
             "TargetMain"
           ]
-        },
-        {
-          "name": "RouteDetail",
-          "pattern": "Docno/{Docno}",
-          "target": "TargetDetail"
-          
         }
       ],
       "targets": {
@@ -114,15 +108,11 @@
           "clearControlAggregation": false,
           "viewId": "Main",
           "viewName": "Main"
-        },
-        "TargetDetail": {
-          "viewType": "XML",
-          "viewName": "Detail"
         }
       }
     },
     "rootView": {
-      "viewName": "project1119.view.App",
+      "viewName": "project1120.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

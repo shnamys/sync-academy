@@ -1,0 +1,87 @@
+<mvc:View controllerName="project1119.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="idPage" title="전표 상세 내역" showNavButton="true" navButtonPress="onNavBack"> <!-- nav버튼을 눌러 main 뷰로 돌아가기-->
+        <content>
+            <Table id="idTable"                
+                items="{
+                    path: '/DocItemEntitySet'
+                }">
+                <FlexBox justifyContent="End">
+                    <Text text="Subtotal: {sum>/subtotal}" />
+                </FlexBox>
+                <columns>
+                    <Column width="4em" hAlign="Center">
+                        <Text text="회사코드" />
+                    </Column>
+                    <Column width="5em" hAlign="Center">
+                        <Text text="전기일" />
+                    </Column>    
+                    <Column width="6em" hAlign="Center">
+                        <Text text="전표번호" />
+                    </Column>
+                    <Column width="3em" hAlign="Center">
+                        <Text text="차/대변 지시자" />
+                    </Column>
+                    <Column width="3em" hAlign="Center">
+                        <Text text="전기키" />
+                    </Column>
+                    <Column width="6em" hAlign="Center">
+                        <Text text="G/L 계정번호" />
+                    </Column>
+                    <Column width="6em" >
+                        <Text text="G/L 계정명" />    
+                    </Column>
+                     <Column width="5em" hAlign="End">
+                        <Text text="금액" />
+                    </Column> 
+                    <Column width="3em" hAlign="Center">
+                        <Text text="통화" />
+                    </Column>
+                     <Column width="20em" >
+                        <Text text="적요" />
+                    </Column>
+
+                    
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text="{Bukrs}" />
+                            <!-- <Text text="{Docdate}" /> -->
+                            <Text text="{
+                            path: 'Docdate',
+                            type: 'sap.ui.model.odata.type.Date',
+                            formatOptions: {
+                                pattern: 'yyyy.MM.dd'
+                                }
+                            }" />
+                            <Text text="{Docno}"/>
+                            <Text text="{Drcrk}" />
+                            <Text text="{Bschl}" />
+                            <Text text="{Racct}" />
+                            <Text text="{Gl_nm}" />
+                            <!-- <Text text="{Amount}" /> -->
+                            <Text text="{
+                                parts: [
+                                    { path: 'Amount' },
+                                    { path: 'CurrencyCode' },
+                                    { path: '/DocItemEntitySet', 
+                                      formatter: '.calculateTotalAmount' }
+                                ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: {
+                                    showMeasure: true,
+                                    minFractionDigits: 0,
+                                    maxFractionDigits: 0
+                                }
+                            }" />
+                            <Text text="{Currkey}" />
+                            <Text text="{Doctext}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

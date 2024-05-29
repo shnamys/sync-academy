@@ -1,27 +1,84 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/Filter"
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/m/MessageToast"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Filter, formatter) {
+    
+
+    function (Controller, Filter, FilterOperator, MessageToast) {
         "use strict";
         
-        var oDataModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZBA_GW_FI_02_SRV/", true);
+        var oView ;
+
+        function _countUpdate () {
+            var cPending = 0, cAccept = 0, cReject = 0;
+            
+            var oDataModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZBA_GW_FI_02_SRV/", true);
+            oDataModel.read("/HeaderSet", {
+                success: function(oReturn) {
+                    console.log("필터조회: ", oReturn); 
+
+                    cAll = oReturn.results.length;
+
+                    for (var i = 0 ; i < oReturn.results.length; i++){
+                        switch (oReturn.results[i].Arvst){
+                            case 'W':
+                                cPending++;
+                                break;
+                            case 'Y':
+                                cAccept++;
+                                break;
+                            case 'N':
+                                cReject++;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                        
+                    // debugger;
+
+                    var cAll = cPending + cAccept + cReject;
+                    
+                    oView.byId("idPending").setCount(cPending);
+                    oView.byId("idAccept").setCount(cAccept);
+                    oView.byId("idReject").setCount(cReject);
+                    oView.byId("idAll").setCount(cAll);
+
+                },
+            });
+
+
+        }
         
         return Controller.extend("project1119.controller.Main", {
-            
+
             onInit: function () {
                 // var oDataModel = this.getView().getModel();
-                this.getView().setModel(oDataModel);
-                var oFilter = new Filter("Arvst", "EQ", "W");
-                debugger;
 
-                 oDataModel.read("/HeaderSet", {
-                    filters : [oFilter],
+                var oDataModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZBA_GW_FI_02_SRV/", true);
+                this.getView().setModel(oDataModel);
+
+                oView = this.getView();
+
+                var oTable = this.getView().byId("DocTable");
+                var binding = oTable.getBinding("items");
+
+                var oFilter = new Filter("Arvst", "EQ", "W");
+                var aFilters = [];
+                aFilters.push(oFilter);
+
+
+                oDataModel.read("/HeaderSet", {
                     success: function(oReturn) {
                         console.log("필터조회: ", oReturn); 
+                        binding.filter(aFilters);
+
+                        _countUpdate();
                     
                     },
                     error : function(oError) {
@@ -29,84 +86,155 @@ sap.ui.define([
                     }
                 }); 
 
-                // oDataModel.read("/HeaderSet/$count", {
-                //     success: function(oReturn) {
-                //         // console.log("전체조회: ", oReturn); 
-                //         var iCount = oReturn;
-                //         this.byId("idIconTabFilterAll").setCount(iCount);
-                //     }.bind(this),
-                //     error : function(oError) {
-                //         console.log("전체조회 중 오류 발생", oError);
-                //     }
-                // });               
+
             },
 
             onFilterSelect : function(oEvent) {
-                var oBinding = this.byId("DocTable").getBinding("items"),
-				sKey = oEvent.getParameter("key"),
-				aFilters = [];
-				debugger;
+                var oBinding = this.byId("DocTable").getBinding("items");
+				var sKey = oEvent.getParameter("key");
+				var aFilters = [];
+
                 if (sKey === "W") {
                     aFilters.push(
-                        new Filter([
-                            new Filter([new Filter("Arvst", "EQ", "W")], true),
-                        ], false)
+                        new Filter({
+                            path: 'Arvst',
+                            operator: FilterOperator.EQ,
+                            value1: 'W'
+                        })
                     );
+                    this.getView().byId("btn_reject").setVisible(true);
+                    this.getView().byId("btn_accept").setVisible(true);
                 } else if (sKey === "Y") {
                     aFilters.push(
-                        new Filter([
-                            new Filter([new Filter("Arvst", "EQ", "Y")], true),
-                        ], false)
+                        new Filter({
+                            path: 'Arvst',
+                            operator: FilterOperator.EQ,
+                            value1: 'Y'
+                        })
                     );
+                    this.getView().byId("btn_reject").setVisible(false);
+                    this.getView().byId("btn_accept").setVisible(false);
                 } else if (sKey === "N") {
                     aFilters.push(
-                        new Filter([
-                            new Filter([new Filter("Arvst", "EQ", "N")], true),
-                        ], false)
+                        new Filter({
+                            path: 'Arvst',
+                            operator: FilterOperator.EQ,
+                            value1: 'N'
+                        })
                     );
+                    this.getView().byId("btn_reject").setVisible(false);
+                    this.getView().byId("btn_accept").setVisible(false);
+                    
+                } else if (sKey === "All") {
+                    aFilters.push(
+                        new Filter({
+                            path: 'Arvst',
+                            operator: FilterOperator.NE,
+                            value1: ''
+                        })
+                    );
+                    this.getView().byId("btn_reject").setVisible(false);
+                    this.getView().byId("btn_accept").setVisible(false);
                 }
-    
+            
                 oBinding.filter(aFilters);
             },
             onAccept : function() {
-                // var oBody = this.getView().getModel(oDataModel).getData();
-                // var sPath = oDataModel.createKey("/HeaderSet", {
-                //     Arvst : oBody.Arvst
-                // }); 
+
                 
-                // oDataModel.update(sPath, oBody, {
-                //     success : function() {
-                //         sap.m.MessageToast.show("데이터 변경 완료");
-                //     }
-                // });
-            var oTable = this.byId("DocTable");
-            var aSelectedContexts = oTable.getSelectedContexts();
+                var oTable = this.byId("DocTable");
+                var aSelectedContexts = oTable.getSelectedContexts();
+                
+                debugger; 
 
-            if (aSelectedContexts.length === 0) {
-                MessageToast.show("승인할 항목을 선택하십시오.");
-                return;
-            }
+                if (aSelectedContexts.length === 0) {
+                    MessageToast.show("승인할 항목을 선택하십시오.");
+                    return;
+                }
 
-            var oDataModel = this.getView().getModel();
+                var oDataModel = this.getView().getModel();
 
-            aSelectedContexts.forEach(function(oContext) {
-                var sPath = oContext.getPath();
-                var oData = oContext.getObject();
+                aSelectedContexts.forEach(function(oContext) {
+                    debugger;
+                    var sPath = oContext.getPath();
+                    var oData = oContext.getObject();
 
-                // 승인 상태로 변경
-                oData.Arvst = "Y";
+                    // 승인 상태로 변경
+                    oData.Arvst = "Y";
 
-                oDataModel.update(sPath, oData, {
-                    success: function() {
-                        MessageToast.show("데이터 변경 완료");
-                    },
-                    error: function(oError) {
-                        MessageToast.show("데이터 변경 실패");
-                        console.error("Update failed", oError);
-                    }
+                    oDataModel.update(sPath, oData, {
+                        success: function() {
+                            MessageToast.show("데이터 변경 완료");
+
+                    
+                            oTable.getBinding("items").filter([new Filter({
+                                path: 'Arvst',
+                                operator: FilterOperator.EQ,
+                                value1: 'W'
+                            })]);
+
+                            _countUpdate();
+                        },
+                        error: function(oError) {
+                            MessageToast.show("데이터 변경 실패");
+                            console.error("Update failed", oError);
+                        }
+                    });
                 });
-            });
             
+            },
+            onReject : function() {
+                var oTable = this.byId("DocTable");
+                var aSelectedContexts = oTable.getSelectedContexts();
+                
+                debugger; 
+
+                if (aSelectedContexts.length === 0) {
+                    MessageToast.show("반려할 항목을 선택하십시오.");
+                    return;
+                }
+
+                var oDataModel = this.getView().getModel();
+
+                aSelectedContexts.forEach(function(oContext) {
+                    debugger;
+                    var sPath = oContext.getPath();
+                    var oData = oContext.getObject();
+
+                    // 승인 상태로 변경
+                    oData.Arvst = "N";
+
+                    oDataModel.update(sPath, oData, {
+                        success: function() {
+                            MessageToast.show("데이터 변경 완료");
+
+                            oTable.getBinding("items").filter([new Filter({
+                                path: 'Arvst',
+                                operator: FilterOperator.EQ,
+                                value1: 'W'
+                            })]);
+
+                            _countUpdate();
+                        },
+                        error: function(oError) {
+                            MessageToast.show("데이터 변경 실패");
+                            console.error("Update failed", oError);
+                        }
+                    });
+                });
+            
+            },
+
+
+
+            handleItemPress: function(oEvent) {
+                // debugger;
+                var oItem = oEvent.getSource();
+
+                this.getOwnerComponent().getRouter().navTo("RouteDetail", {
+                    Docno : oItem.getBindingContext().getProperty("Docno")
+                }, true);
+
             }
 
         });
