@@ -69,9 +69,9 @@ sap.ui.define([
 
             onSearch: function() {
                 var sRacctId = this.byId("idRacct").getSelectedKey();
-                var oDateRangeSelection = this.byId("DRP1");
-                var sStartDate = oDateRangeSelection.getDateValue();
-                var sEndDate = oDateRangeSelection.getSecondDateValue();
+                // var oDateRangeSelection = this.byId("DRP1");
+                // var sStartDate = oDateRangeSelection.getDateValue();
+                // var sEndDate = oDateRangeSelection.getSecondDateValue();
     
                 var aFilters = [];
     
@@ -79,9 +79,9 @@ sap.ui.define([
                     aFilters.push(new Filter("Racct", FilterOperator.EQ, sRacctId));
                 }
     
-                if (sStartDate && sEndDate) {
-                    aFilters.push(new Filter("Docdate", FilterOperator.BT, sStartDate, sEndDate));
-                }
+                // if (sStartDate && sEndDate) {
+                //     aFilters.push(new Filter("Docdate", FilterOperator.BT, sStartDate, sEndDate));
+                // }
 
                 var oVizFrame = this.getView().byId("idChart");
                 oVizFrame = this.getView().byId("idChart");

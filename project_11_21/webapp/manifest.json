@@ -1,19 +1,19 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "project1120",
+    "id": "project1121",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "0.0.1"
     },
-    "title": "{{appTitle}}",
+    "title": "{{[SYNC_REST] 전표 승인}}",
     "description": "{{appDescription}}",
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.12.1",
-      "toolsId": "a9c94b7f-24a4-41db-b87a-8b9514383edf"
+      "toolsId": "02356c3e-b57e-44f5-8cb6-12ee53887e7d"
     },
     "dataSources": {
       "mainService": {
@@ -28,17 +28,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "SO_ZBA_02-display": {
-          "semanticObject": "SO_ZBA_02",
-          "action": "display",
-          "title": "{{flpTitle}}",
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          }
-        },
-        "zbaid_02-display": {
-          "semanticObject": "zbaid_02",
+        "SO_ZBA_03-display": {
+          "semanticObject": "SO_ZBA_03",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -88,7 +79,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "project1120.i18n.i18n"
+          "bundleName": "project1121.i18n.i18n"
         }
       },
       "": {
@@ -109,7 +100,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "project1120.view",
+        "viewPath": "project1121.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -121,6 +112,12 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "Docno/{Docno}",
+          "target": "TargetDetail"
+          
         }
       ],
       "targets": {
@@ -130,11 +127,15 @@
           "clearControlAggregation": false,
           "viewId": "Main",
           "viewName": "Main"
+        },
+        "TargetDetail": {
+          "viewType": "XML",
+          "viewName": "Detail"
         }
       }
     },
     "rootView": {
-      "viewName": "project1120.view.App",
+      "viewName": "project1121.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
